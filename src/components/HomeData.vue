@@ -16,7 +16,7 @@
       </tr>
     </tbody>
   </table>
-  <div v-else-if="loading">Loading...</div>
+  <div v-else-if="loading" class="loading">Loading...</div>
   <div v-else>No data Available</div>
 </template>
 
@@ -29,26 +29,30 @@ export default {
         { name: "Max", roll_no: "12334", marks: "489" },
         { name: "Ramanujan", roll_no: "10045", marks: "475" },
       ],
-      dataFetched: true,
       loading: false,
     };
   },
+  computed: {
+    dataFetched() {
+      return this.studs.length > 0;
+    },
+  },
   methods: {
     fetchData() {
+      this.dataFetched = false;
       this.loading = true;
-      let fetchedData = [];
       let that = this;
       setTimeout(() => {
-        fetchedData = [
+        let fetchedData = [
           { name: "Mohan", roll_no: "100045", marks: "496" },
           { name: "Clark", roll_no: "100034", marks: "493" },
           { name: "Ramanujan", roll_no: "100025", marks: "490" },
         ];
         if (fetchedData.legnth > 0) {
-          that.dataFetched = true;
+          that.studs = fetchedData;
           that.loading = false;
         } else {
-          that.dataFetched = false;
+          that.studs = [];
           that.loading = false;
         }
       }, 3000);
@@ -91,9 +95,18 @@ export default {
     font-family: "Courier New", Courier, monospace;
     border: none; //5px solid gray;
     border-radius: 5px;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
+}
+.loading {
+  width: max-content;
+  height: max-content;
+  padding: 25px;
+  font-size: 24px;
+  background-color: lightgray;
+  position: absolute;
+  top: 25%;
+  left: 40%;
+  color: white;
 }
 </style>
