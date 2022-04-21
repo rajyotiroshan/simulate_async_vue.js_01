@@ -30,29 +30,30 @@ export default {
         { name: "Ramanujan", roll_no: "10045", marks: "475" },
       ],
       loading: false,
+      dataFetched: true,
     };
   },
-  computed: {
-    dataFetched() {
-      return this.studs.length > 0;
-    },
-  },
+
   methods: {
     fetchData() {
       this.dataFetched = false;
       this.loading = true;
       let that = this;
       setTimeout(() => {
+        console.log("settimeout");
         let fetchedData = [
           { name: "Mohan", roll_no: "100045", marks: "496" },
           { name: "Clark", roll_no: "100034", marks: "493" },
           { name: "Ramanujan", roll_no: "100025", marks: "490" },
         ];
-        if (fetchedData.legnth > 0) {
+        if (fetchedData.length > 0) {
+          console.log("data fetched");
           that.studs = fetchedData;
+          that.dataFetched = true;
           that.loading = false;
         } else {
           that.studs = [];
+          that.dataFetched = false;
           that.loading = false;
         }
       }, 3000);
