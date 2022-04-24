@@ -17,7 +17,7 @@
     </tbody>
   </table>
   <div v-else-if="loading" class="loading">Loading...</div>
-  <div v-else>No data Available</div>
+  <div v-else class="no_data">No data Available</div>
 </template>
 
 <script>
@@ -41,11 +41,16 @@ export default {
       let that = this;
       setTimeout(() => {
         console.log("settimeout");
-        let fetchedData = [
-          { name: "Mohan", roll_no: "100045", marks: "496" },
-          { name: "Clark", roll_no: "100034", marks: "493" },
-          { name: "Ramanujan", roll_no: "100025", marks: "490" },
-        ];
+        let flag = Math.floor(Math.random() * 2) + 1;
+        let fetchedData = [];
+        if (flag === 1) {
+          fetchedData = [
+            { name: "Mohan", roll_no: "100045", marks: "496" },
+            { name: "Clark", roll_no: "100034", marks: "493" },
+            { name: "Ramanujan", roll_no: "100025", marks: "490" },
+          ];
+        }
+
         if (fetchedData.length > 0) {
           console.log("data fetched");
           that.studs = fetchedData;
@@ -99,7 +104,8 @@ export default {
     cursor: pointer;
   }
 }
-.loading {
+.loading,
+.no_data {
   width: max-content;
   height: max-content;
   padding: 25px;
